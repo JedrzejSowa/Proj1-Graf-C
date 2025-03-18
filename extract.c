@@ -3,7 +3,6 @@
 #include <ctype.h>
 #include "extract.h"
 
-// Function to map number words to their corresponding integer values
 static int word_to_number(const char *word) {
     if (strcasecmp(word, "zero") == 0) return 0;
     if (strcasecmp(word, "one") == 0) return 1;
@@ -16,35 +15,33 @@ static int word_to_number(const char *word) {
     if (strcasecmp(word, "eight") == 0) return 8;
     if (strcasecmp(word, "nine") == 0) return 9;
     if (strcasecmp(word, "ten") == 0) return 10;
-    return -1; // Return -1 if the word doesn't match a number
+    return -1; 
 }
 
-// Function to extract a number from the input string
+// Funkcja wyciągająca liczbę z ciągu wejściowego
 int extract_number(const char *input) {
-    char word[16]; // Buffer for potential word match
+    char word[16];
     const char *ptr = input;
     while (*ptr) {
-        // Check for digits
         if (isdigit(*ptr)) {
-            return atoi(ptr); // Return integer value if digits are found
+            return atoi(ptr);
         }
 
-        // Check for words
         if (isalpha(*ptr)) {
             int i = 0;
             while (isalpha(*ptr) && i < (int)(sizeof(word) - 1)) {
                 word[i++] = *ptr;
                 ptr++;
             }
-            word[i] = '\0'; // Null-terminate the word
+            word[i] = '\0';
 
             int number = word_to_number(word);
             if (number != -1) {
-                return number; // Return the mapped number if found
+                return number;
             }
         } else {
-            ptr++; // Move to the next character if it's not alphanumeric
+            ptr++;
         }
     }
-    return -1; // Return -1 if no number is found
+    return -1;
 }

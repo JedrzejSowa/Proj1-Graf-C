@@ -19,20 +19,20 @@ void generateGraph(int corners, int directed) {
 
     fprintf(file, "Generated Graph:\n\n");
 
-    // Initialize a grid with -1
+ 
     int grid[MAX_CORNERS][MAX_CORNERS];
     for (int i = 0; i < corners; i++) {
         for (int j = 0; j < corners; j++) {
-            grid[i][j] = -1; // Empty cell
+            grid[i][j] = -1; 
         }
     }
 
-    // Randomly place the first corner
+   
     int startX = rand() % corners;
     int startY = rand() % corners;
     grid[startX][startY] = 0;
 
-    // Place remaining corners ensuring connectivity
+
     for (int i = 1; i < corners; i++) {
         int placed = 0;
         while (!placed) {
@@ -40,11 +40,11 @@ void generateGraph(int corners, int directed) {
             int y = rand() % corners;
 
             if (grid[x][y] == -1) {
-                // Ensure placement is adjacent to an existing corner
-                if ((x > 0 && grid[x - 1][y] != -1) ||  // Top
-                    (x < corners - 1 && grid[x + 1][y] != -1) ||  // Bottom
-                    (y > 0 && grid[x][y - 1] != -1) ||  // Left
-                    (y < corners - 1 && grid[x][y + 1] != -1)) {  // Right
+
+                if ((x > 0 && grid[x - 1][y] != -1) ||  
+                    (x < corners - 1 && grid[x + 1][y] != -1) ||  
+                    (y > 0 && grid[x][y - 1] != -1) ||  
+                    (y < corners - 1 && grid[x][y + 1] != -1)) {  
                     grid[x][y] = i;
                     placed = 1;
                 }
@@ -52,16 +52,16 @@ void generateGraph(int corners, int directed) {
         }
     }
 
-    // Connections tracking to avoid duplicates
+
     int connections[MAX_CORNERS][MAX_CORNERS] = {0};
 
-    // If the graph is directed, generate random arrows
+
     if (directed) {
         for (int i = 0; i < corners; i++) {
             for (int j = 0; j < corners; j++) {
                 if (grid[i][j] != -1) {
-                    // Check neighbors and create random arrows
-                    if (i > 0 && grid[i - 1][j] != -1 && !connections[grid[i][j]][grid[i - 1][j]]) {  // Top
+
+                    if (i > 0 && grid[i - 1][j] != -1 && !connections[grid[i][j]][grid[i - 1][j]]) { 
                         int direction = rand() % 3;
                         if (direction == 0) {
                             fprintf(file, "[%d] --> [%d]\n", grid[i][j], grid[i - 1][j]);
@@ -114,7 +114,6 @@ void generateGraph(int corners, int directed) {
         }
     }
 
-    // Output the grid layout to the file
     for (int i = 0; i < corners; i++) {
         for (int j = 0; j < corners; j++) {
             if (grid[i][j] == -1) {
@@ -157,8 +156,8 @@ int main() {
             directed = 1;
         }
     } else if (choice == 'n' || choice == 'N') {
-        srand(time(0)); // Initialize random seed
-        corners = (rand() % 10) + 1; // Generate a random number between 1 and 10
+        srand(time(0));
+        corners = (rand() % 10) + 1;
         printf("Randomly generated number of corners: %d\n", corners);
 
         printf("Do you want the graph to be directed? (y/n): ");
