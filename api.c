@@ -75,7 +75,7 @@ int main() {
         curl_easy_setopt(curl, CURLOPT_POST, 1L);
         // Dane JSON tworzone dynamicznie na podstawie wejscia uzytkownika
         char json_data[512];
-        snprintf(json_data, sizeof(json_data), "{\"model\":\"deepseek-r1:1.5b\", \"prompt\":\"%s\", \"stream\":false}", prompt);
+        snprintf(json_data, sizeof(json_data), "{\"model\":\"gemma3:1b\", \"prompt\":\"%s\", \"stream\":false}", prompt);
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_data);
         // Ustaw naglowek Content-Type na application/json
         headers = curl_slist_append(headers, "Content-Type: application/json");
